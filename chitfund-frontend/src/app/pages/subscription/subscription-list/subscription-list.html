@@ -5,12 +5,12 @@
     <div class="search">
       <select [(ngModel)]="filterBy">
         <option value="username">Username</option>
-        <option value="phone">Phone</option>
-        <option value="planId">Plan ID</option>
+        <option value="phone">Phone Number</option>
+        <option value="planId">Plan Name</option>
         <option value="status">Status</option>
       </select>
 
-      <input type="text" placeholder="Search..." [(ngModel)]="searchTerm" (keyup.enter)="onSearch()" />
+      <input type="text" placeholder="Search..." [(ngModel)]="searchTerm" (input)="onSearch()" />
 
       <button (click)="onSearch()">Search</button>
       <button class="muted" (click)="clearSearch()">Clear</button>
@@ -36,6 +36,7 @@
         <th>Fixed Amount</th>
         <th>Total Amount Paid</th>
         <th>Total Grams Earned</th>
+        <th>Remaining Months</th>
         <th>Plan Start Date</th>
         <th>Plan End Date</th>
         <th>Status</th>
@@ -49,6 +50,7 @@
         <td>{{ s.planId?.fixedAmount ?? '-' }}</td>
         <td>{{ s.totalAmountPaid ?? 0 }}</td>
         <td>{{ s.totalGramsEarned ?? 0 }}</td>
+        <td>{{ s.remainingMonths ?? 0 }}</td>
         <td>{{ s.planStartDate | date:'mediumDate' }}</td>
         <td>{{ s.planEndDate ? (s.planEndDate | date:'mediumDate') : '-' }}</td>
         <td>{{ s.status }}</td>

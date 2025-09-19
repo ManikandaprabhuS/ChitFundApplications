@@ -1,39 +1,58 @@
+/* Layout */
 .dashboard-container {
   display: flex;
-  min-height: 100vh;
+  height: calc(100vh - 64px);
+  /* leave space for top navbar */
+  background-color: var(--md-sys-color-surface);
 }
 
+/* Sidebar */
 .sidebar {
-  width: 220px;
-  background-color: #333;
-  color: white;
-  padding: 20px;
+  width: 240px;
+  background: linear-gradient(180deg, #FFD700, #DAA520);
+  /* gold gradient */
+  color: black;
+  padding: 1rem;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
 }
 
 .sidebar h2 {
-  font-size: 1.5em;
-  margin-bottom: 20px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
 }
 
 .sidebar ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.sidebar ul li {
-  margin-bottom: 15px;
+.sidebar li {
+  margin: 0.75rem 0;
 }
 
-.sidebar ul li a {
-  color: white;
+.sidebar a {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
   text-decoration: none;
+  color: black;
+  font-weight: 500;
+  transition: background 0.3s, color 0.3s;
 }
 
-.sidebar ul li a:hover {
-  text-decoration: underline;
+/* Active link highlight */
+.sidebar a.active,
+.sidebar a:hover {
+  background-color: black;
+  color: #FFD700;
 }
 
-.content {
+/* Main content */
+.main-content {
   flex: 1;
   padding: 2rem;
+  overflow-y: auto;
+  background-color: var(--md-sys-color-background);
 }

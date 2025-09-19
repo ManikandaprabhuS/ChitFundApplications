@@ -99,28 +99,71 @@ router.delete('/:id', async (req, res) => {
 // ✅ Get subscriptions with pagination
 router.get('/paginated', async (req, res) => {
   try {
-    let { page = 1, limit = 10 } = req.query;
+    let { page = 1, limit = 10, q, filter } = req.query;
     page = parseInt(page);
     limit = parseInt(limit);
 
-    const subscriptions = await Subscription.find()
-      .populate('userId', 'name email address phoneNumber')
-      .populate('planId', 'name planDuration fixedAmount')
-      .skip((page - 1) * limit)
-      .limit(limit)
-      .sort({ createdAt: -1 });
+    const pipeline = [
+      // Join user data
+      {
+        $lookup: {
+          from: 'users', // name of your users collection
+          localField: 'userId',
+          foreignField: '_id',
+          as: 'userId'
+        }
+      },
+      { $unwind: '$userId' },
 
-    const total = await Subscription.countDocuments();
+      // Join plan data
+      {
+        $lookup: {
+          from: 'plans', // name of your plans collection
+          localField: 'planId',
+          foreignField: '_id',
+          as: 'planId'
+        }
+      },
+      { $unwind: { path: '$planId', preserveNullAndEmptyArrays: true } },
+    ];
 
+    // Filtering
+    if (q && filter) {
+      if (filter === "username") {
+        pipeline.push({ $match: { "userId.name": { $regex: q, $options: "i" } } });
+      } else if (filter === "phone") {
+        pipeline.push({ $match: { "userId.phone": { $regex: q, $options: "i" } } });
+      } else if (filter === "planId") {
+        pipeline.push({ $match: { "planId.name": { $regex: q, $options: "i" } } });
+      } else if (filter === "status") {
+        pipeline.push({ $match: { status: { $regex: q, $options: "i" } } });
+      }
+    }
+
+    // Count total records
+    const totalResult = await Subscription.aggregate([...pipeline, { $count: 'count' }]);
+    const totalRecords = totalResult[0]?.count || 0;
+
+    // Apply pagination
+    pipeline.push({ $sort: { createdAt: -1 } });
+    pipeline.push({ $skip: (page - 1) * limit });
+    pipeline.push({ $limit: limit });
+
+    const subscriptions = await Subscription.aggregate(pipeline);
+
+    console.log(subscriptions)
+
+    res.setHeader("Cache-Control", "no-store");
     res.status(200).json({
       success: true,
       page,
       limit,
-      totalPages: Math.ceil(total / limit),
-      totalRecords: total,
-      subscriptions,
+      totalPages: Math.ceil(totalRecords / limit),
+      totalRecords,
+      subscriptions
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ success: false, message: error.message });
   }
 });

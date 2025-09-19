@@ -16,17 +16,18 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of users">
-        <td>{{ user._id }}</td>
-        <td>{{ user.name }}</td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.phone }}</td>
-        <td>{{ user.address }}</td>
-        <td>
+        <td data-label="ID">{{ user._id }}</td>
+        <td data-label="Name">{{ user.name }}</td>
+        <td data-label="Username">{{ user.username }}</td>
+        <td data-label="Email">{{ user.email }}</td>
+        <td data-label="Phone">{{ user.phone }}</td>
+        <td data-label="Address">{{ user.address }}</td>
+        <td data-label="Actions">
           <button class="edit-btn" (click)="editUser(user._id)">Edit</button>
           <button class="delete-btn" (click)="deleteUser(user._id)">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
+
 </div>

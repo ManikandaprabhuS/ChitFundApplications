@@ -3,10 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SubscriptionService } from '../subscription.service';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-subscription-list',
-   standalone: true,
+  standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './subscription-list.html',
   styleUrl: './subscription-list.css'
@@ -25,13 +27,20 @@ export class SubscriptionList implements OnInit {
   searchTerm = '';
   filterBy: 'username' | 'phone' | 'planId' | 'status' = 'username';
 
-  constructor(private subscriptionService: SubscriptionService) {}
+  searchChanged = new Subject<string>();
+
+  constructor(private subscriptionService: SubscriptionService) { }
 
 
   ngOnInit(): void {
     this.loadSubscriptions();
+    this.searchChanged.pipe(debounceTime(500)).subscribe(() => {
+      this.page = 1;
+      this.loadSubscriptions();
+    });
   }
-loadSubscriptions(): void {
+
+  loadSubscriptions(): void {
     this.loading = true;
     this.subscriptionService.getSubscriptions(this.page, this.limit, this.searchTerm || undefined, this.searchTerm ? this.filterBy : undefined)
       .subscribe({
