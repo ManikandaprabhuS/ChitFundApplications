@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { User } from '../../models/user.model';
@@ -7,13 +7,24 @@ import { User } from '../../models/user.model';
   providedIn: 'root'
 })
 export class UserService {
+  getUsersPagination() {
+    throw new Error('Method not implemented.');
+  }
   
  private apiUrl = 'http://localhost:4000/api/users'; // Get List of users
  private baseUrl = 'http://localhost:4000/api/auth/register'; // Add users
 constructor(private http: HttpClient) {}
 
-  getUsers(userId?: string): Observable<any> {
-    return this.http.get(this.apiUrl);
+ // Get paginated users
+  getUsers(page: number, limit: number, q?: string, filter?: string): Observable<any> {
+    let params = new HttpParams()
+      .set('page', String(page))
+      .set('limit', String(limit));
+
+    if (q) params = params.set('q', q);
+    if (filter) params = params.set('filter', filter);
+
+    return this.http.get<any>(`${this.apiUrl}/paginated`, { params });
   }
 
   createUser(userData: any): Observable<any> {

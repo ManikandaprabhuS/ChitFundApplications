@@ -1,20 +1,87 @@
+/* Container */
+h1 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: #444;
+}
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-  }
+/* Create Button */
+.create-btn {
+  background: #fbc02d; /* golden yellow */
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 16px;
+  transition: background 0.3s ease;
+}
 
-  th, td {
-    border: 1px solid #ddd;
-    padding: 0.5rem;
-    text-align: left;
-  }
+.create-btn:hover {
+  background: #f9a825; /* darker yellow */
+}
 
-  th {
-    background-color: #f4f4f4;
-  }
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+}
 
-  button {
-    margin-right: 0.5rem;
-  }
+th, td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  background: #fbc02d; /* yellow header */
+  font-weight: bold;
+  color: #333;
+}
+
+tr:nth-child(even) {
+  background: #fafafa;
+}
+
+tr:hover {
+  background: #fffde7; /* light yellow hover */
+}
+
+/* Action Buttons */
+td button {
+  margin-right: 6px;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+/* Edit Button */
+td button:first-child {
+  background: #fdd835; /* yellow */
+  color: #333;
+}
+
+td button:first-child:hover {
+  background: #fbc02d;
+}
+
+/* Delete Button */
+td button:last-child {
+  background: #e53935; /* red */
+  color: #fff;
+}
+
+td button:last-child:hover {
+  background: #c62828;
+}

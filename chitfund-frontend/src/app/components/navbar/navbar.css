@@ -1,45 +1,32 @@
- /* nav {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  background-color: #333;
-  color: white;
-}
-
-nav div {
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   display: flex;
   align-items: center;
-} */
+  padding: 0 1rem;
+  font-weight: 500;
+  background: #1e1e2f; /* Dark elegant color */
+  color: #fff;
+}
 
- .top-nav {
-   position: sticky;
-   top: 0;
-   z-index: 1000;
- }
+.title {
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
 
- .title {
-   font-size: 20px;
-   font-weight: 600;
- }
+.spacer {
+  flex: 1;
+}
 
- .spacer {
-   flex: 1 1 auto;
- }
+.logout-btn {
+  background-color: #e53935; /* simple red */
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
 
-
- .mat-toolbar,
- app-navbar nav {
-   background: linear-gradient(90deg, var(--gold-start), var(--gold-end));
-   color: var(--gold-text) !important;
-   font-weight: bold;
- }
-
- .logout-btn {
-   background-color: var(--danger) !important;
-   color: #fff !important;
-   font-weight: bold;
- }
-
- .logout-btn:hover {
-   background-color: #d32f2f !important;
- }
+.logout-btn:hover {
+  background-color: #b71c1c;
+}

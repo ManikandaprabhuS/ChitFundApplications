@@ -13,6 +13,54 @@ router.get("/", async (req, res) => {
   }
 });
 
+// Get paginated users
+router.get('/paginated', async (req, res) => {
+  try {
+    let { page = 1, limit = 10, q, filter } = req.query;
+    page = parseInt(page);
+    limit = parseInt(limit);
+
+    const pipeline = [];
+
+    // Filtering
+    // Dynamic filtering
+    if (q && filter) {
+      const allowedFilters = ['name', 'email', 'phone', 'role'];
+      if (allowedFilters.includes(filter)) {
+        pipeline.push({
+          $match: {
+            [filter]: { $regex: q, $options: 'i' } // case-insensitive search
+          }
+        });
+      }
+    }
+    
+    // Count total records
+    const totalResult = await User.aggregate([...pipeline, { $count: 'count' }]);
+    const totalRecords = totalResult[0]?.count || 0;
+
+    // Apply pagination
+    pipeline.push({ $sort: { createdAt: -1 } });
+    pipeline.push({ $skip: (page - 1) * limit });
+    pipeline.push({ $limit: limit });
+
+    const users = await User.aggregate(pipeline);
+
+    res.setHeader("Cache-Control", "no-store");
+    res.status(200).json({
+      success: true,
+      page,
+      limit,
+      totalPages: Math.ceil(totalRecords / limit),
+      totalRecords,
+      users
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 // ✅ Create new user
 router.post("/", async (req, res) => {
   try {
@@ -71,5 +119,7 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+
 
 export default router;

@@ -11,9 +11,9 @@ body {
 }
 
 :root {
-    --gold-start: #FFD700;
+    --gold-start: #fdfdfd;
     /* Gold */
-    --gold-end: #DAA520;
+    --gold-end: #fdfdfd;
     /* Goldenrod */
     --gold-text: #000000;
     /* Black text for contrast */
