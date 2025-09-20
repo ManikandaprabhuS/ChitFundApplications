@@ -1,25 +1,40 @@
-<h1>Plan List</h1>
-<button class="create-btn" (click)="goToCreate()">Create New Plan</button>
+<div class="user-list-container">
+  <h1>Plan List</h1>
 
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Price</th>
-    <th>Duration</th>
-    <th>Actions</th>
-  </tr>
+  <div class="top-controls">
+    <button class="create-btn" (click)="goToCreate()">Create New Plan</button>
+    <div class="filter-section">
+      <input type="text" placeholder="Search Plan" />
+      <select>
+        <option value="">All Duration</option>
+        <option value="6">6 Months</option>
+        <option value="12">12 Months</option>
+      </select>
+      <button>Filter</button>
+    </div>
+  </div>
 
-  <tr *ngFor="let plan of plans">
-    <td>{{ plan._id }}</td>
-    <td>{{ plan.name }}</td>
-    <td>{{ plan.description }}</td>
-    <td>{{ plan.fixedAmount }}</td>
-    <td>{{ plan.duration }}</td>
-    <td>
-      <button (click)="editPlan(plan._id)">Edit</button>
-      <button (click)="deletePlan(plan._id)">Delete</button>
-    </td>
-  </tr>
-</table>
+  <div class="table-container">
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Duration</th>
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let plan of plans">
+        <td>{{ plan._id }}</td>
+        <td>{{ plan.name }}</td>
+        <td>{{ plan.description }}</td>
+        <td>{{ plan.fixedAmount }}</td>
+        <td>{{ plan.duration }}</td>
+        <td>
+          <button (click)="editPlan(plan._id)">Edit</button>
+          <button (click)="deletePlan(plan._id)">Delete</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

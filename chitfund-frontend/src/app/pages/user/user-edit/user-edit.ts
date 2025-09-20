@@ -58,4 +58,8 @@ export class UserEdit {
       console.error('Error updating user:', error);
     });
   }
+
+  cancel() {
+    this.router.navigate(['/dashboard/users']); // Navigate back to user list
+  }
 }

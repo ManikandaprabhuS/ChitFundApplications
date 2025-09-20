@@ -1,32 +1,33 @@
-<div class="form-wrap">
-  <h2>Create New Plan</h2>
+<div class="form-wrapper">
+  <form (ngSubmit)="submit()" #frm="ngForm" class="user-form">
+    <h1>Create New Plan</h1>
 
-  <form (ngSubmit)="submit()" #frm="ngForm" class="plan-form">
-    <label>
-      Plan Name
-      <input type="text" name="name" [(ngModel)]="plan.name" required />
-    </label>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Plan Name:</label>
+        <input type="text" name="name" [(ngModel)]="plan.name" required />
+      </div>
+      <div class="form-group">
+        <label>Duration (months):</label>
+        <input type="number" name="durationMonths" [(ngModel)]="plan.duration" min="1" required />
+      </div>
+    </div>
 
-    <label>
-      Duration (months)
-      <input type="number" name="durationMonths" [(ngModel)]="plan.duration" min="1" required />
-    </label>
-
-    <label>
-      Fixed Amount (₹)
-      <input type="number" name="fixedAmount" [(ngModel)]="plan.fixedAmount" min="0" step="0.01" required />
-    </label>
-
-    <label>
-      Description
-      <textarea name="description" [(ngModel)]="plan.description" rows="4"></textarea>
-    </label>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Fixed Amount (₹):</label>
+        <input type="number" name="fixedAmount" [(ngModel)]="plan.fixedAmount" min="0" step="0.01" required />
+      </div>
+      <div class="form-group">
+        <label>Description:</label>
+        <textarea name="description" [(ngModel)]="plan.description" rows="4"></textarea>
+      </div>
+    </div>
 
     <div class="actions">
-    <button class="btn cancel" (click)="cancel()">Cancel</button>
-  <button type="submit" class="btn primary" [disabled]="loading">
-        {{ loading ? 'Creating...' : 'Create Plan' }}
+      <button class="btn cancel" (click)="cancel()">Cancel</button>
+      <button type="submit" class="btn primary" [disabled]="loading">
+        <span *ngIf="!loading">Create Plan</span>
+        <span *ngIf="loading" class="spinner"></span>
       </button>
     </div>
-  </form>
-</div>

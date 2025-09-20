@@ -10,13 +10,3 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-:root {
-    --gold-start: #fdfdfd;
-    /* Gold */
-    --gold-end: #fdfdfd;
-    /* Goldenrod */
-    --gold-text: #000000;
-    /* Black text for contrast */
-    --danger: #B71C1C;
-    /* Red for logout */
-}

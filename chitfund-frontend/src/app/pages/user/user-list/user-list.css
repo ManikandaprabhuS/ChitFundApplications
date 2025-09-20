@@ -1,86 +1,221 @@
+/* Wrapper for the user list section */
 .user-list-container {
-  max-width: 100%;
-  padding: 20px;
+  background: #fff;
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  width: 95%;
+  max-width: 1200px;
+  margin: 30px auto;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  color: #333;
 }
 
+/* Heading */
+.user-list-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #222;
+}
+
+/* Top controls wrapper (create button + search) */
+.top-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Create button */
 .create-btn {
-  background: #4caf50;
-  color: #fff;
+  padding: 10px 18px;
   border: none;
-  padding: 10px 14px;
-  border-radius: 6px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg,  #218838, #1e7e34);
   cursor: pointer;
-  margin-bottom: 15px;
+  transition: background 0.3s;
+  white-space: nowrap;
 }
 
 .create-btn:hover {
-  background: #45a049;
+  background: linear-gradient(135deg,  #218838, #1e7e34);
+  transform: translateY(-2px);
 }
 
+/* Filter & Search Section aligned in one row */
 .filter-section {
-  margin-bottom: 15px;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  align-items: center;
+  gap: 8px;
 }
 
 .filter-section select,
 .filter-section input {
-  padding: 8px;
-  border-radius: 4px;
+  padding: 8px 12px;
+  border-radius: 6px;
   border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
 }
 
+.filter-section select:focus,
+.filter-section input:focus {
+  border-color: #2575fc;
+  box-shadow: 0 0 4px rgba(37, 117, 252, 0.3);
+}
+
+.filter-section button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #2575fc, #6a11cb);
+  color: #fff;
+  transition: background 0.2s;
+}
+
+.filter-section button:hover {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+}
+
+/* Table wrapper for responsiveness */
 .table-container {
+  width: 100%;
   overflow-x: auto;
 }
 
-table {
+.table-container table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 800px;
+  table-layout: auto;
+  font-size: 14px;
 }
 
-th, td {
-  border: 1px solid #ddd;
-  padding: 12px;
+.table-container th,
+.table-container td {
+  padding: 10px 12px;
   text-align: left;
-  white-space: nowrap;
+  border-bottom: 1px solid #eaeaea;
+  white-space: normal;
 }
 
-th {
-  background-color: #f4f4f4;
-  font-weight: bold;
+.table-container th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #444;
 }
 
-button {
-  margin: 2px;
+.table-container tr:hover td {
+  background: #f9f9ff;
+}
+
+/* Action buttons in table */
+.table-container td button {
   padding: 6px 10px;
+  border-radius: 6px;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 2px;
+  transition: background 0.2s;
 }
 
-button:first-child {
-  background-color: #2196f3;
-  color: white;
+.table-container td button:first-child {
+  background: #2575fc;
+  color: #fff;
 }
 
-button:last-child {
-  background-color: #f44336;
-  color: white;
+.table-container td button:first-child:hover {
+  background: #6a11cb;
 }
 
+.table-container td button:last-child {
+  background: #dc3545;
+  color: #fff;
+}
+
+.table-container td button:last-child:hover {
+  background: #a50f2a;
+}
+
+/* Center Actions Column */
+.table-container td:last-child,
+.table-container th:last-child {
+  text-align: center;
+  width: 120px;
+}
+
+/* Pagination */
 .pagination {
-  margin-top: 15px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  gap: 12px;
+  gap: 8px;
+  margin-top: 20px;
 }
 
 .pagination button {
-  padding: 8px 12px;
-  border-radius: 4px;
+  padding: 6px 12px;
+  border-radius: 5px;
   border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.pagination button.active {
+  background: #2575fc;
+  color: #fff;
+  border-color: #2575fc;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .top-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .filter-section {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .filter-section input {
+    flex: 1;
+  }
+
+  .create-btn {
+    width: 100%;
+  }
+
+  .table-container th,
+  .table-container td {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+  .table-container td button {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
 }

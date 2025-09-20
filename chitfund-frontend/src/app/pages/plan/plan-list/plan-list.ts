@@ -40,7 +40,7 @@ export class PlanList implements OnInit{
     }
   }
 editPlan(id: string) {
-  alert('Plan edit function called for ID: ' + id);
+  //alert('Plan edit function called for ID: ' + id);
     this.router.navigate([`/dashboard/plans/edit/${id}`]);
   }
 goToCreate() {
